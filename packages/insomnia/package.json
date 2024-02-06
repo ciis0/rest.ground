@@ -14,7 +14,7 @@
     "directory": "packages/insomnia"
   },
   "license": "MIT",
-  "author": "",
+  "author": "Arno Nym",
   "main": "src/main.min.js",
   "scripts": {
     "build": "npm run build:sr && npm run build:app",
