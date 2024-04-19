@@ -98,6 +98,6 @@ bump the following node and electron versions
 
 - `.npmrc`
 - `.nvmrc`
-- `packages/insomnia/package.json` electron and node-libcurl
+- `packages/insomnia/package.json` electron and node-libcurl (the README there, too.)
 - `packages/insomnia-send-request/package.json` node-libcurl
 - `shell.nix`
