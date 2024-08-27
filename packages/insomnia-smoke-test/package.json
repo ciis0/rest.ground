@@ -42,7 +42,7 @@
     "faker": "^5.1.0",
     "graphql": "^16.7.1",
     "jest": "^28.1.0",
-    "oidc-provider": "^7.10.6",
+    "oidc-provider": "^8.5.1",
     "uuid": "^8.3.2",
     "ws": "^8.13.0",
     "xvfb-maybe": "^0.2.1"

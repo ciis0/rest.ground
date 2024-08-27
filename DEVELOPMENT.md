@@ -94,7 +94,9 @@ This is just a brief summary of Insomnia's current technical debt.
 
 <https://releases.electronjs.org/>
 
-bump the following node and electron versions
+bump the following node-libcurl and electron versions
+
+The Electron version must be (the) one matching the/a [latest release](https://github.com/Kong/node-libcurl/releases), e.g. `28.0.0` because this repo is not set up to build the neccesary native extensions for node-libcurl with gyp.
 
 - `.npmrc`
 - `.nvmrc`
