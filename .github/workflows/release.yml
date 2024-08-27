@@ -29,9 +29,11 @@ jobs:
         run: |
           npm ci
           npm run app-package
+
+          Compress-Archive -Path packages\insomnia\dist\windows-unpacked\* -DestionationPath rest.ground-"$env:RELEASE_VERSION".zip
       - name: Publish
         uses: ncipollo/release-action@v1
         with:
-            artifacts: "packages/insomnia/dist/*.exe,packages/insomnia/dist/squirrel-windows/*.exe"
+            artifacts: "packages/insomnia/dist/*.exe,packages/insomnia/dist/squirrel-windows/*.exe,./*.zip"
             allowUpdates: true
             updateOnlyUnreleased: true
