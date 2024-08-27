@@ -32,7 +32,7 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=6144"
         run: |
-          version=$(git describe)
+          $version=$(git describe)
           npm ci
           npm version -ws "$version"
           npm run app-package
