@@ -35,7 +35,7 @@ jobs:
           npm ci
           npm run app-package
 
-          Compress-Archive -Path packages\insomnia\dist\windows-unpacked\* -DestionationPath rest.ground-"$env:RELEASE_VERSION".zip
+          Compress-Archive -Path packages\insomnia\dist\windows-unpacked\* -DestinationPath rest.ground-"$env:RELEASE_VERSION".zip
 
       - name: Publish
         uses: ncipollo/release-action@v1
