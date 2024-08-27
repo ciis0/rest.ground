@@ -13,7 +13,7 @@ env:
 
 jobs:
   build-electron-mac:
-    runs-on: macos-latest
+    runs-on: windows-latest
     permissions:
         contents: write
     steps:
@@ -32,6 +32,6 @@ jobs:
       - name: Publish
         uses: ncipollo/release-action@v1
         with:
-            artifacts: "packages/insomnia/dist/*.dmg"
+            artifacts: "packages/insomnia/dist/*.exe,packages/insomnia/dist/squirrel*.exe"
             allowUpdates: true
             updateOnlyUnreleased: true
