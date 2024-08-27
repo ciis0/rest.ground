@@ -32,6 +32,6 @@ jobs:
       - name: Publish
         uses: ncipollo/release-action@v1
         with:
-            artifacts: "packages/insomnia/dist/*.exe,packages/insomnia/dist/squirrel*.exe"
+            artifacts: "packages/insomnia/dist/*.exe,packages/insomnia/dist/squirrel-windows/*.exe"
             allowUpdates: true
             updateOnlyUnreleased: true
