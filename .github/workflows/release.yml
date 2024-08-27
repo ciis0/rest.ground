@@ -33,6 +33,7 @@ jobs:
           NODE_OPTIONS: "--max_old_space_size=6144"
         run: |
           npm ci
+          npm version -ws "$env:RELEASE_VERSION"
           npm run app-package
 
           Compress-Archive -Path packages\insomnia\dist\win-unpacked\* -DestinationPath rest.ground-"$env:RELEASE_VERSION".zip
