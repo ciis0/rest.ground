@@ -32,6 +32,10 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=6144"
         run: |
+
+          npm version from-git --allow-same-version --no-git-tag-version --workspaces --include-workspace-root --no-workspaces-update
+          $version=$(npm pkg get version | convertfrom-json)
+
           npm ci
           npm run app-package
 
