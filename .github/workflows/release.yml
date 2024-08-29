@@ -41,6 +41,27 @@ jobs:
 
           Compress-Archive -Path packages\insomnia\dist\win-unpacked\* -DestinationPath rest.ground-"$version".zip
 
+      - name: Archive Portable
+        uses: actions/upload-artifact@v4
+        with:
+          name: portable
+          path: |-
+            packages/insomnia/dist/*.exe
+
+      - name: Archive Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer
+          path: |-
+            packages/insomnia/dist/squirrel-windows/*.exe
+
+      - name: Archive ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: zip
+          path: |-
+            ./*.zip
+
       - name: Publish
         uses: ncipollo/release-action@v1
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
@@ -48,13 +69,3 @@ jobs:
             artifacts: "packages/insomnia/dist/*.exe,packages/insomnia/dist/squirrel-windows/*.exe,./*.zip"
             allowUpdates: true
             updateOnlyUnreleased: true
-
-      - name: Archive artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: artifacts
-          path: |-
-            packages/insomnia/dist/*.exe
-            packages/insomnia/dist/squirrel-windows/*.exe
-            ./*.zip
-
