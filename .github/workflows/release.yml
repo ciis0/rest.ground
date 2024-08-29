@@ -5,10 +5,13 @@ on:
   push:
     tags:
       - '*'
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 env:
-  RELEASE_VERSION: ${{ github.event.inputs.version }}
-  IS_PRERELEASE: ${{ contains(github.event.inputs.version, 'alpha') || contains(github.event.inputs.version, 'beta') }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
@@ -18,21 +21,50 @@ jobs:
         contents: write
     steps:
       - uses: actions/checkout@v3
-      - name: Node 18
+        with:
+          fetch-depth: $(( ${{ github.event_name == 'pull_request' && github.event.pull_request.commits || 0 }} + 10 ))
+      - name: Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
       - name: Build UI
         working-directory: .
         env:
           NODE_OPTIONS: "--max_old_space_size=6144"
         run: |
+
+          npm version from-git --allow-same-version --no-git-tag-version --workspaces --include-workspace-root --no-workspaces-update
+          $version=$(npm pkg get version | convertfrom-json)
+
           npm ci
           npm run app-package
 
-          Compress-Archive -Path packages\insomnia\dist\windows-unpacked\* -DestionationPath rest.ground-"$env:RELEASE_VERSION".zip
+          Compress-Archive -Path packages\insomnia\dist\win-unpacked\* -DestinationPath rest.ground-"$version".zip
+
+      - name: Archive Portable
+        uses: actions/upload-artifact@v4
+        with:
+          name: portable
+          path: |-
+            packages/insomnia/dist/*.exe
+
+      - name: Archive Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer
+          path: |-
+            packages/insomnia/dist/squirrel-windows/*.exe
+
+      - name: Archive ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: zip
+          path: |-
+            ./*.zip
+
       - name: Publish
         uses: ncipollo/release-action@v1
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
         with:
             artifacts: "packages/insomnia/dist/*.exe,packages/insomnia/dist/squirrel-windows/*.exe,./*.zip"
             allowUpdates: true

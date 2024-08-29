@@ -11,8 +11,8 @@
   },
   "homepage": "https://github.com/mkkhedawat/rest.ground#readme",
   "engines": {
-    "node": ">=18.15 <20",
-    "npm": ">=8.19.0"
+    "node": "20",
+    "npm": "10"
   },
   "workspaces": [
     "packages/openapi-2-kong",
