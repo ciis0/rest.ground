@@ -32,18 +32,6 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=6144"
         run: |
-          if ( "$(git describe)" -match "^(.+?)(-g(.+))?$" ) {
-            if ($Matches.count -le 2) {
-              # exact
-              $version=$Matches[0]
-            } else {
-              $version="$($Matches[1])+$($Matches[3])"
-            }
-            npm version -ws "$version"
-          } else {
-            echo "git describe failed, using committed version"
-            $version=$(npm pkg get version | ConvertFrom-json)
-          }
           npm ci
           npm run app-package
 
